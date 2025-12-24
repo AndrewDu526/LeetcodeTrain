@@ -42,29 +42,29 @@ n == nums4.length
 ## 4. Code Implementation
 
     class Solution {
-    public int fourSumCount(int[] numsA, int[] numsB, int[] numsC, int[] numsD) {
-        int result = 0;
-        Map<Integer, Integer> semi = new HashMap();
-        for(int i : numsA){
-            for(int j : numsB){
-                int sum = i + j;
-                semi.put(sum, semi.getOrDefault(sum,0)+1);
+        public int fourSumCount(int[] numsA, int[] numsB, int[] numsC, int[] numsD) {
+            int result = 0;
+            Map<Integer, Integer> semi = new HashMap();
+            for(int i : numsA){
+                for(int j : numsB){
+                    int sum = i + j;
+                    semi.put(sum, semi.getOrDefault(sum,0)+1);
+                }
             }
-        }
-
-        for(int i : numsC){
-            for(int j : numsD){
-                int sum = i + j;
-                int want = - sum;
-                result += semi.getOrDefault(want, 0);
+    
+            for(int i : numsC){
+                for(int j : numsD){
+                    int sum = i + j;
+                    int want = - sum;
+                    result += semi.getOrDefault(want, 0);
+                }
             }
+            return result;
         }
-        return result;
     }
-}
-
+   
 ## 5. Conclusion
-- A+B的次数是聚合后的次数，因为遍历了所有的C，D组合，出现次数包含了A+B的聚合次数的集，因此直接累加A+B的配对次数。
+- A+B 的次数是对所有 (a, b) 组合的显式聚合统计，而 C+D 的组合次数通过双重循环被逐一枚举。由于遍历 C+D 的过程已经隐式包含其出现频率，因此在每次匹配时只需累加 A+B 的聚合次数即可完成四元组计数。
 - HashMap中获取指定key值的value的方法是.get(key)或者.getOrDefault(key, default)，处理没有找到指定key时返回的默认值。
 - 题目中并没有保证有解，因此需要考虑key没有找到的情况，需要使用.getOrDefault()方法。
 - HashMap中检查是否存在指定key的方法是.containsKey(key)。
