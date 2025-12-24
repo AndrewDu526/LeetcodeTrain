@@ -40,44 +40,44 @@
 ## 4. Code Implementation
 我的答案（错误）：
 
-  class Solution {
-      public int[] findTarget(int target,  int[] nums) {
-          Map<int, int> record = new HashMap();
-          int index = 0;
-          for(int i : nums){
-              record.put(index, i);
-              i++;
-          }
-          
-          for(int i : nums){
-              int want = target - i;
-              // 止步于此，意识到思路错误，查找HashMap里的value时间复杂度为O(n)，同时处在其他问题
-          }
-      }    
-  }
+    class Solution {
+        public int[] findTarget(int target,  int[] nums) {
+            Map<int, int> record = new HashMap();
+            int index = 0;
+            for(int i : nums){
+                record.put(index, i);
+                i++;
+            }
+            
+            for(int i : nums){
+                int want = target - i;
+                // 止步于此，意识到思路错误，查找HashMap里的value时间复杂度为O(n)，同时存在其他问题
+            }
+        }    
+    }
 
 - 分歧问题详见conclusion
 
 标准答案：
 
-  class Solution {
-      public int[] twoSum(int target,  int[] nums) {
-          
-          Map<Integer, Integer> record = new HashMap();
-  
-          for(int i=0, i<nums.length(), i++){
-              int want = target - nums[i];
-              if(record.hasKey(want)){
-                  return [nums[i], i];
-              }else{
-                  record.push(nums[i], i);
-              }
+    public int[] twoSum(int[] nums, int target) {
+      int[] res = new int[2];
+      if(nums == null || nums.length == 0){
+          return res;
+      }
+      Map<Integer, Integer> map = new HashMap<>();
+      for(int i = 0; i < nums.length; i++){
+          int temp = target - nums[i];   // 遍历当前元素，并在map中寻找是否有匹配的key
+          if(map.containsKey(temp)){
+              res[1] = i;
+              res[0] = map.get(temp);
+              break;
           }
-          return;
-      }    
+          map.put(nums[i], i);    // 如果没找到匹配对，就把访问过的元素和下标加入到map中
+      }
+      return res;
   }
 
 ## 5. Conclusion
 - 在本题中，我最初意识到可以用 HashMap 将时间复杂度从 O(n²) 优化到 O(n)，方向是正确的，但一开始错误地将 map 设计为 key=下标，value=元素，导致需要按 value 查找，无法发挥 HashMap O(1) 查找的优势，并引入了区分“重复元素”和“重复使用同一元素”等额外复杂逻辑。
 进一步分析后我意识到，题目要求返回的是下标，因此正确的设计应为 key=元素值，value=下标，并在遍历数组的过程中动态记录已访问的元素。这样可以直接通过 containsKey(target - nums[i]) 在 O(1) 时间内查找补数，同时自然地处理重复元素（如 2 + 2 = 4）。此外，HashSet 不适用于本题，因为它无法提供元素对应的下标信息。
-- 
