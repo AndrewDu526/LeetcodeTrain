@@ -1,27 +1,21 @@
-# LC index
+# LC 
 
 ## 1. Basic Information
 
-- __question__: 
-- __topic__:
-- __level__: 
+- __level__:
 - __time-cost__:
-- __completed-date__: 
-- __completed-times__:
-- __status__:
+- __completed-date__:
+- __completed-times__: 
+- __status__: 
 
-## 2. Question
+## 2. Solution
 
-question
 
-## 3. Solution
 
-solution 
-
-## 4. Code Implementation
+## 3. Code Implementation
 
     java
 
-## 5. Conclusion
+## 4. Notes
 
 -
